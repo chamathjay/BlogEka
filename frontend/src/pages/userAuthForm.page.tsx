@@ -1,4 +1,6 @@
+import { Link } from "react-router-dom";
 import InputBox from "../components/input.component";
+import googleIcon from "../imgs/google.png";
 import { User, Mail, KeyRound } from 'lucide-react';
 
 const iconMap: Record<string, JSX.Element> = {
@@ -37,6 +39,39 @@ const UserAuthForm = ({ type }: { type: "signin" | "signup" }) => {
                     placeholder="Password"
                     id={undefined}
                     value={undefined} />
+
+                <button
+                    className="btn-dark center w-full"
+                    type="submit"
+                >
+                    {type == "signin" ? "Sign In" : "Sign Up"}
+                </button>
+
+                <div className="relative w-full flex items-center gap-2 my-10 opacity-20 uppercase text-black font-bold">
+                    <hr className="w-1/2 border-black" />
+                    <p>or</p>
+                    <hr className="w-1/2 border-black" />
+                </div>
+
+                <button className="btn-light w-full flex items-center justify-center gap-2 mb-6">
+                    <img src={googleIcon} className="w-5"></img>Continue with google
+                </button>
+
+                {
+                    type == "signin" ?
+                        <p className="text-center text-dark-grey">
+                            Don't have an account? <Link to="/signup" className="text-blue-500">
+                                Join us today
+                            </Link>
+                        </p>
+                        :
+                        <p className="text-center text-dark-grey">
+                            Already a member? <Link to="/signin" className="text-blue-500">
+                                Sign in here
+                            </Link>
+                        </p>
+                }
+
             </form>
         </section>
     )
