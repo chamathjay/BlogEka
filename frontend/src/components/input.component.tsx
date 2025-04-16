@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Eye, EyeOff } from 'lucide-react';
+import { User, Mail, KeyRound, Eye, EyeOff } from 'lucide-react';
 
 interface InputBoxProps {
     name: string;
@@ -9,28 +9,44 @@ interface InputBoxProps {
     placeholder: string;
 }
 
-const InputBox: React.FC<InputBoxProps> = ({ name, type, id, value, placeholder }) => {
+const InputBox = ({ name, type, id, value, placeholder }: InputBoxProps) => {
     const [passwordVisibility, setPasswordVisibility] = useState(false);
 
+    const togglePasswordVisibility = () => {
+        setPasswordVisibility(!passwordVisibility);
+    };
+
     return (
-        <div>
+        <div className='flex items-center relative'>
             <input
                 name={name}
-                type={type}
+                type={type === "password" ? (passwordVisibility ? "text" : "password") : type}
                 placeholder={placeholder}
                 id={id}
                 defaultValue={value}
-                className="input-box"
+                className="input-box pl-12 mb-6"
             />
 
-            {
-                type == "password" ?
-                    <Eye className='left-[auto] right-4 cursor-pointer' />
-                    : ""
-            }
+            {type == "text" && <User className='absolute left-3 text-gray-500' />}
+
+            {type == "email" && <Mail className='absolute left-3 text-gray-500' />}
+
+            {type === "password" && (<KeyRound className='absolute left-3 text-gray-500' />)}
+
+            {type === "password" && (
+                passwordVisibility ?
+                    <EyeOff
+                        className='absolute right-3 cursor-pointer'
+                        onClick={togglePasswordVisibility}
+                    /> :
+                    <Eye
+                        className='absolute right-3 cursor-pointer'
+                        onClick={togglePasswordVisibility}
+                    />
+            )}
 
         </div>
-    )
-}
+    );
+};
 
 export default InputBox;
