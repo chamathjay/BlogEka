@@ -1,15 +1,15 @@
 import React, { useState } from 'react';
 import { User, Mail, KeyRound, Eye, EyeOff } from 'lucide-react';
 
-interface InputBoxProps {
+interface InputBoxProps extends React.InputHTMLAttributes<HTMLInputElement> {
     name: string;
-    type: string;
+    // type: string;
     id?: string;
     value?: string;
     placeholder: string;
 }
 
-const InputBox = ({ name, type, id, value, placeholder }: InputBoxProps) => {
+const InputBox: React.FC<InputBoxProps> = ({ name, type, id, value, placeholder }) => {
     const [passwordVisibility, setPasswordVisibility] = useState(false);
 
     const togglePasswordVisibility = () => {
